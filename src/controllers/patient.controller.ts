@@ -20,7 +20,7 @@ export async function createPatient(req: Request, res: Response) {
 export async function getPatients(req: Request, res: Response) {
   try {
     const patients = await getAllPatients();
-    res.json(patients);
+    res.status(200).json(patients);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener pacientes" });
   }
