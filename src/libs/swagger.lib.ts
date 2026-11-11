@@ -8,6 +8,14 @@ const doc = {
   },
   host: "localhost:3000",
   schemes: ["http"],
+  securityDefinitions: {
+    bearerAuth: {
+      type: "apiKey",
+      in: "header",
+      name: "Authorization",
+      description: "Escribe: Bearer <tu token>",
+    },
+  },
 };
 
 const outputFile = "swagger-output.json";

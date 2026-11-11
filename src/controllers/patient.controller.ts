@@ -8,6 +8,7 @@ import {
 export async function createPatient(req: Request, res: Response) {
   /* #swagger.tags = ['Patients']
      #swagger.summary = 'Registra un paciente nuevo'
+     #swagger.security = [{ "bearerAuth": [] }]
      #swagger.parameters['body'] = {
        in: 'body',
        schema: {
@@ -30,7 +31,8 @@ export async function createPatient(req: Request, res: Response) {
 
 export async function getPatients(req: Request, res: Response) {
   /* #swagger.tags = ['Patients']
-     #swagger.summary = 'Lista todos los pacientes' */
+     #swagger.summary = 'Lista todos los pacientes'
+      #swagger.security = [{ "bearerAuth": [] }] */
   try {
     const patients = await getAllPatients();
     res.status(200).json(patients);
@@ -41,7 +43,8 @@ export async function getPatients(req: Request, res: Response) {
 
 export async function getPatientId(req: Request, res: Response) {
   /* #swagger.tags = ['Patients']
-     #swagger.summary = 'Obtiene un paciente por su id' */
+     #swagger.summary = 'Obtiene un paciente por su id'
+     #swagger.security = [{ "bearerAuth": [] }] */
   const id = Number(req.params.id);
   if (!id) {
     return res.status(400).json({ error: "El id debe ser un número" });
