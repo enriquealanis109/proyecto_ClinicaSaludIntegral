@@ -10,5 +10,13 @@ export async function getAllPatients() {
 }
 
 export async function getPatientById(id: number) {
-  return prisma.patient.findUnique({ where: { id } });
+  return prisma.patient.findUnique({
+    where: { id },
+    include: {
+      appointments: {
+        include: { doctor: { include: { specialty: true } } },
+        orderBy: { date: "desc" },
+      },
+    },
+  });
 }
