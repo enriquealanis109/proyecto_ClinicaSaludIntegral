@@ -14,6 +14,8 @@ app.use("/api", patientRoutes);
 app.use("/api", doctorRoutes);
 
 app.get("/api/specialties", async (req, res) => {
+  /* #swagger.tags = ['Specialties']
+     #swagger.summary = 'Lista todas las especialidades' */
   const data = await prisma.specialty.findMany();
   res.json(data);
 });
