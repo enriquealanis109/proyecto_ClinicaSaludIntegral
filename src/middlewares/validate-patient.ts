@@ -3,7 +3,11 @@ import { z } from "zod";
 
 export const patientSchema = z.object({
   name: z.string().trim().min(1, "El nombre es obligatorio"),
-  email: z.string().trim().email("El correo no tiene formato valido"),
+  email: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .email("El correo no tiene formato valido"),
   birthDate: z.coerce
     .date()
     .max(new Date(), "La fecha de nacimiento no puede ser futura"),
