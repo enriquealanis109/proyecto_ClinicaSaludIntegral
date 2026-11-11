@@ -13,6 +13,10 @@
   "paths": {
     "/api/specialties": {
       "get": {
+        "tags": [
+          "Specialties"
+        ],
+        "summary": "Lista todas las especialidades",
         "description": "",
         "responses": {
           "200": {
@@ -23,7 +27,38 @@
     },
     "/api/patients": {
       "post": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Registra un paciente nuevo",
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Enrique Alanis"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "enrique@gmail.com"
+                },
+                "birthDate": {
+                  "type": "string",
+                  "example": "1995-03-15"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "8441234567"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -40,6 +75,10 @@
         }
       },
       "get": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Lista todos los pacientes",
         "description": "",
         "responses": {
           "200": {
@@ -53,6 +92,10 @@
     },
     "/api/patients/{id}": {
       "get": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "Obtiene un paciente por su id",
         "description": "",
         "parameters": [
           {
@@ -80,11 +123,17 @@
     },
     "/api/doctors": {
       "get": {
+        "tags": [
+          "Doctors"
+        ],
+        "summary": "Lista los médicos, con filtro opcional por especialidad",
         "description": "",
         "parameters": [
           {
             "name": "specialty",
             "in": "query",
+            "description": "Nombre de la especialidad, por ejemplo: Pediatria",
+            "required": false,
             "type": "string"
           }
         ],
