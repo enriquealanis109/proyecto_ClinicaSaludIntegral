@@ -6,6 +6,17 @@ import {
 } from "../models/patient.model.js";
 
 export async function createPatient(req: Request, res: Response) {
+  /* #swagger.tags = ['Patients']
+     #swagger.summary = 'Registra un paciente nuevo'
+     #swagger.parameters['body'] = {
+       in: 'body',
+       schema: {
+         name: 'Enrique Alanis',
+         email: 'enrique@gmail.com',
+         birthDate: '1995-03-15',
+         phone: '8441234567'
+       }
+     } */
   try {
     const patient = await createPatientInDb(req.body);
     res.status(201).json(patient);
@@ -18,6 +29,8 @@ export async function createPatient(req: Request, res: Response) {
 }
 
 export async function getPatients(req: Request, res: Response) {
+  /* #swagger.tags = ['Patients']
+     #swagger.summary = 'Lista todos los pacientes' */
   try {
     const patients = await getAllPatients();
     res.status(200).json(patients);
@@ -27,6 +40,8 @@ export async function getPatients(req: Request, res: Response) {
 }
 
 export async function getPatientId(req: Request, res: Response) {
+  /* #swagger.tags = ['Patients']
+     #swagger.summary = 'Obtiene un paciente por su id' */
   const id = Number(req.params.id);
   if (!id) {
     return res.status(400).json({ error: "El id debe ser un número" });
