@@ -8,3 +8,17 @@ export function getAppointmentsBySpecialty() {
     GROUP BY s.name
     ORDER BY total_appointments DESC`;
 }
+
+export async function getDailyCutoff(date: string) {
+  const startOfDay = new Date(`${date}T00:00:00`);
+  const endOfDay = new Date(`${date}T23:59:59`);
+
+  return prisma.appointment.groupBy({
+    by: ["status"],
+    where: {
+      date: { gte: startOfDay, lte: endOfDay },
+      status: { in: ["COMPLETED", "CANCELED"] },
+    },
+    _count: { status: true },
+  });
+}
