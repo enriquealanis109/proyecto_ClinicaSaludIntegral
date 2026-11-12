@@ -31,4 +31,23 @@ export const validateAppointment = (
   next();
 };
 
+export const appointmentStatusSchema = z.object({
+  status: z.enum(["COMPLETED", "CANCELED"]),
+});
+
+export const validateAppointmentStatus = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const result = appointmentStatusSchema.safeParse(req.body);
+
+  if (!result.success) {
+    res.status(400).json({ error: "Estado invalido" });
+    return;
+  }
+  req.body = result.data;
+  next();
+};
+
 export type AppointmentInput = z.infer<typeof appointmentSchema>;

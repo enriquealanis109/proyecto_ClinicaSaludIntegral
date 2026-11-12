@@ -33,9 +33,26 @@ export async function getDoctorAgenda(
   return prisma.appointment.findMany({
     where: {
       doctorId,
-      date: { gte: from, lte: to },
+      ...(from && to ? { date: { gte: from, lte: to } } : {}),
     },
     include: { patient: true },
     orderBy: { date: "asc" },
+  });
+}
+
+export async function getAppointmentById(id: number) {
+  return prisma.appointment.findUnique({
+    where: { id },
+    include: { doctor: true },
+  });
+}
+
+export async function updateAppointmentStatus(
+  id: number,
+  status: "COMPLETED" | "CANCELED",
+) {
+  return prisma.appointment.update({
+    where: { id },
+    data: { status },
   });
 }

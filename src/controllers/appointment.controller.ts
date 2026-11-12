@@ -3,9 +3,12 @@ import {
   createAppointment as createAppointmentInBd,
   findOverlappingAppointment,
   getDoctorAgenda,
+  getAppointmentById,
+  updateAppointmentStatus,
 } from "../models/appointment.model.js";
 import { getPatientById } from "../models/patient.model.js";
 import { getDoctorById } from "../models/doctor.model.js";
+import { da } from "zod/locales";
 
 export async function createAppointment(req: Request, res: Response) {
   /* #swagger.tags = ['Appointments']
@@ -64,10 +67,12 @@ export async function getDoctorAppointment(req: Request, res: Response) {
   if (!doctorId) {
     return res.status(400).json({ error: "El id debe ser número entero" });
   }
-  const from =
-    typeof req.query.from === "string" ? new Date(req.query.from) : undefined;
-  const to =
-    typeof req.query.to === "string" ? new Date(req.query.to) : undefined;
+  let from: Date | undefined;
+  let to: Date | undefined;
+  if (typeof req.query.from === "string" && typeof req.query.to === "string") {
+    from = new Date(req.query.from);
+    to = new Date(req.query.to);
+  }
 
   try {
     const doctor = await getDoctorById(doctorId);
@@ -83,5 +88,39 @@ export async function getDoctorAppointment(req: Request, res: Response) {
     res.json(agenda);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener agenda" });
+  }
+}
+export async function changeAppointmentStatus(req: Request, res: Response) {
+  /* #swagger.tags = ['Appointments']
+     #swagger.summary = 'Cambia el estado de una cita (COMPLETED o CANCELED)'
+     #swagger.security = [{ "bearerAuth": [] }]
+     #swagger.parameters['body'] = {
+       in: 'body',
+       schema: {
+         status: 'COMPLETED'
+       }
+     } */
+  const id = Number(req.params.id);
+  if (!id) {
+    return res.status(400).json({ error: "El id debe ser un numero entero" });
+  }
+  try {
+    const appointment = await getAppointmentById(id);
+    if (!appointment) {
+      return res.status(404).json({ error: "Cita no encontrada" });
+    }
+    if (appointment.doctor.userId !== req.user?.id) {
+      return res
+        .status(403)
+        .json({ error: "Solo puedes cambiar el estado de tus propias citas" });
+    }
+
+    const update = await updateAppointmentStatus(id, req.body.status);
+    res.json(update);
+  } catch (error: any) {
+    if (error.code === "P2025") {
+      return res.status(404).json({ error: "Cita no encontrada" });
+    }
+    res.status(500).json({ error: "Error al cambiar el estado" });
   }
 }
