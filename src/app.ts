@@ -7,6 +7,7 @@ import doctorRoutes from "./routes/doctor.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import { verifyToken } from "./middlewares/auth.middleware.js";
 import { authorize } from "./middlewares/authorize.middleware.js";
+import appointmentRoutes from "./routes/appointment.routes.js";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use("/api/docs", swaggerRouter);
 app.use("/api/auth", authRoutes);
 app.use("/api", patientRoutes);
 app.use("/api", doctorRoutes);
+app.use("/api", appointmentRoutes);
 
 app.get(
   "/api/specialties",

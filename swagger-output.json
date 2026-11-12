@@ -317,6 +317,75 @@
           }
         ]
       }
+    },
+    "/api/appointments": {
+      "post": {
+        "tags": [
+          "Appointments"
+        ],
+        "summary": "Agenda una cita nueva",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "patientId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "doctorId": {
+                  "type": "number",
+                  "example": 1
+                },
+                "date": {
+                  "type": "string",
+                  "example": "2026-11-20T10:00:00"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Dolor de cabeza"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   }
 }
