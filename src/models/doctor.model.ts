@@ -8,3 +8,6 @@ export async function getAllDoctors(specialtyName?: string) {
     include: { specialty: true },
   });
 }
+export async function getDoctorById(id: number) {
+  return prisma.doctor.findUnique({ where: { id } });
+}

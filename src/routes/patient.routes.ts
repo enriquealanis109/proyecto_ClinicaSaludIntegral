@@ -4,7 +4,7 @@ import {
   getPatients,
   getPatientId,
 } from "../controllers/patient.controller.js";
-import { validatePatient } from "../middlewares/validate-patient.js";
+import { validatePatient } from "../middlewares/validate.patient.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
 import { authorize } from "../middlewares/authorize.middleware.js";
 

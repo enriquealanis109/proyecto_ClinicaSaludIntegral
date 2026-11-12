@@ -1,5 +1,5 @@
 import prisma from "../config/prisma.js";
-import type { PatientInput } from "../middlewares/validate-patient.js";
+import type { PatientInput } from "../middlewares/validate.patient.js";
 
 export async function createPatient(data: PatientInput) {
   return prisma.patient.create({ data });
