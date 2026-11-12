@@ -24,3 +24,18 @@ export async function findOverlappingAppointment(doctorId: number, date: Date) {
     },
   });
 }
+
+export async function getDoctorAgenda(
+  doctorId: number,
+  from?: Date,
+  to?: Date,
+) {
+  return prisma.appointment.findMany({
+    where: {
+      doctorId,
+      date: { gte: from, lte: to },
+    },
+    include: { patient: true },
+    orderBy: { date: "asc" },
+  });
+}
