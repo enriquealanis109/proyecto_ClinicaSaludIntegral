@@ -8,7 +8,6 @@ import {
 } from "../models/appointment.model.js";
 import { getPatientById } from "../models/patient.model.js";
 import { getDoctorById } from "../models/doctor.model.js";
-import { da } from "zod/locales";
 
 export async function createAppointment(req: Request, res: Response) {
   /* #swagger.tags = ['Appointments']
