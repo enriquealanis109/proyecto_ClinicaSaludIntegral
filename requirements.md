@@ -40,6 +40,8 @@
 | doctor_id   | Número Entero | [FK]        |
 | patient_id  | Número Entero | [FK]        |
 
+## USER
+
 | Atributo | Tipo          | Notas                                          |
 | -------- | ------------- | ---------------------------------------------- |
 | id       | Número Entero | [PK]                                           |
@@ -71,8 +73,8 @@
 - Toda cita nace con estado "Programada" (SHCEDULED)
 - Una cita solo puede cambiar a "Completada" (COMPLETED) o "Cancelada" (CANCELED)
 - Un medico no puede tener citas encimadas, cada cita dura 20 min
-
-## Roles y permisos
+- No se puede agendar cita si el paciente o el medico no ecisten
+- Un medico sin cuenta de usuario no puede consultar su agenda
 
 ## ROLES Y PERMISOS
 

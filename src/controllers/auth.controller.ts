@@ -6,6 +6,7 @@ import prisma from "../config/prisma.js";
 export async function register(req: Request, res: Response) {
   /* #swagger.tags = ['Auth']
      #swagger.summary = 'Registra un usuario'
+     #swagger.security = [{ "bearerAuth": [] }]
      #swagger.parameters['body'] = {
        in: 'body',
        schema: { email: 'recepcion@clinica.com', password: '123456', role: 'RECEPTIONIST' }
