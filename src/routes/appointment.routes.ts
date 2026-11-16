@@ -29,7 +29,7 @@ router.get(
 router.patch(
   "/appointments/:id/status",
   verifyToken,
-  authorize("DOCTOR"),
+  authorize("DOCTOR", "RECEPTIONIST"),
   validateAppointmentStatus,
   changeAppointmentStatus,
 );
